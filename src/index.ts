@@ -51,12 +51,23 @@ const main = async () => {
   const profile = await askQuestion('Enter AWS profile name: ');
   const region = await askQuestion('Enter AWS region: ');
 
-  const s3: S3 = new S3({
+  let s3: S3;
+  let buckets: AWS.S3.Bucket[]|undefined;
+
+try {
+  s3 = new S3({
     credentials: new AWS.SharedIniFileCredentials({ profile }),
     region,
   });
   const data: ListBucketsCommandOutput = await s3.listBuckets({});
-  const buckets = data?.Buckets;
+  buckets = data?.Buckets;
+} catch (error) {
+  if (error === 'SharedIniFileCredentialsProviderFailure') {
+    console.error(chalk.red('Profile not found or InvalidAccessKeyId.'));
+  } else {
+    console.error(chalk.red('An unidentified error occurred:', error));
+  }
+}
 
   //List Buckets
     console.info(
@@ -76,7 +87,7 @@ const main = async () => {
         '------------------------------------------------------------------'
       )
     );
-    console.info(`Total number of s3 buckets = ${buckets?.length}`);
+    console.info(`Total number of s3 buckets = ${buckets?.length??0}`);
 
     // Show Vulneribility Report
     console.info('\n\n---------------------Vulneribility Report---------------------\n\n');
@@ -89,7 +100,7 @@ const main = async () => {
             console.info(chalk.yellow('No buckets available'));
           }
     }catch(error){
-
+        console.error(chalk.red(`Error:${error}`))
     }finally{
         IO.close();
     }
