@@ -2,7 +2,7 @@ require('aws-sdk/lib/maintenance_mode_message').suppress = true;
 
 import * as readline from 'readline';
 import * as AWS from 'aws-sdk';
-import { GetBucketCorsOutput, ListBucketsCommandOutput, S3 } from '@aws-sdk/client-s3';
+import { ListBucketsCommandOutput, S3 } from '@aws-sdk/client-s3';
 import * as chalk from 'chalk';
 
 const IO = readline.createInterface({
