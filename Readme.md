@@ -55,4 +55,4 @@ If you find any bugs or have a feature request, please open an issue with a clea
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ##Screenshot
-![Alt text](screensot.png)
+<img width="823" alt="image" src="https://github.com/abhiyankhanal/AWS-S3-vulneribility-scanner/assets/51784021/90029ab2-c01e-4884-a8ff-9a3cc36c9495">
